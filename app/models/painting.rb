@@ -1,7 +1,7 @@
 class Painting
 
-  attr_reader :title, :price
-  attr_accessor :artist, :gallery
+  # attr_reader :title, :price
+  attr_accessor :artist, :gallery, :title, :price
 
   @@all = []
 
@@ -9,14 +9,16 @@ class Painting
     @title = title
     @price = price
     @gallery = gallery
+    @artist = artist
+    @@all << self
   end
 
   def self.all
-    @all
+    @@all
   end
-
-  def total_price
-    self.all.price.reduce(:+)
+  #
+  def self.total_price
+    self.all.map {|painting| painting.price}.reduce(:+)
   end
 
 end

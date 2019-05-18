@@ -1,20 +1,21 @@
 class Artist
   @@all = []
 
-  attr_reader :name, :years_experience
+  attr_reader :name, :years_experience, :gallery
 
   def initialize(name, years_experience)
     @name = name
     @years_experience = years_experience
+    @@all << self
   end
 
   def self.all
     @@all
   end
 
-  def create_painting(title, price, gallery, self)
-    painting = Painting.new(title, price)
-    painting.artist = self
+  def create_painting(title, price, gallery)
+     Painting.new(title, price, gallery, self)
+    # painting.artist = self
   end
 
   def paintings
@@ -22,19 +23,19 @@ class Artist
   end
 
   def galleries
-    # array of all galleries artist has painitn in
+    Painting.all.map {|painting| painting.gallery }.uniq
   end
 
   def cities
-    # all cities artist has painintgs in
+    galleries.map {|gallery| gallery.city }.uniq
   end
 
-  def total_experience
-    self.all.years_experience.reduce(:+)
+  def self.total_experience
+    self.all.reduce(0) {|sum, artist| sum + artist.years_experience}
   end
 
-   def most_prolific
-     # most paintings made
+   def self.most_prolific
+     self.all.max_by {|artist| artist.paintings.length / artist.years_experience}
    end
 
 end
