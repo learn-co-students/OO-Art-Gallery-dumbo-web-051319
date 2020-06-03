@@ -1,0 +1,18 @@
+ActiveRecord::Associations
+https://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+
+------------            ------------           ------------
+|           |           |           |          |           |
+|  Artist   |----------<| Painting  |>---------| Gallery   |
+|___________|           |___________|          |___________|
+
+
+Artist has_many paintings 
+Artist has_many galleries through paintings
+
+A Painting belongs_to an Artist 
+A Painting belongs_to a Gallery 
+
+Gallery has_many paintings
+Gallery has_many Artist through paintings
+
